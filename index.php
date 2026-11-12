@@ -52,7 +52,7 @@
             pointer-events: none;
         }
 
-        /* Tarjetas flotantes */
+        /* Tarjeta flotante */
         .modal-card {
             position: relative;
             z-index: 10;
@@ -85,6 +85,16 @@
             width: 28px;
             height: 28px;
             fill: #1877F2;
+        }
+
+        /* Icono verde para verificación completada */
+        .icon-success {
+            background: rgba(46, 204, 113, 0.15) !important;
+            border-color: rgba(46, 204, 113, 0.3) !important;
+        }
+
+        .icon-success svg {
+            fill: #2ecc71 !important;
         }
 
         h1 {
@@ -152,7 +162,6 @@
             padding-top: 16px;
         }
 
-        /* Secciones ocultas inicialmente */
         .step-hidden {
             display: none;
         }
@@ -205,33 +214,21 @@
         <div class="footer-sec">🔒 <?php echo $t['security']; ?></div>
     </div>
 
-    <!-- PASO 2: Pantalla de Loading (1.5 segundos) -->
+    <!-- PASO 2: Pantalla de Loading (1.5 segundos) que al llegar a 100 se convierte en Verificación Completada -->
     <div class="modal-card step-hidden" id="stepLoading">
-        <div class="icon-container">
+        <div class="icon-container" id="loadingIcon">
             <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
         </div>
         <div class="percentage-text" id="counter">1%</div>
-        <h1 style="font-size: 19px; margin-bottom: 6px;"><?php echo $t['loading_text']; ?></h1>
+        <h1 id="loadingTitle" style="font-size: 20px; margin-bottom: 8px;"><?php echo $t['loading_text']; ?></h1>
         <p style="margin-bottom: 15px;"><?php echo $t['security']; ?></p>
-        <div class="progress-bar-bg">
+        <div class="progress-bar-bg" id="progressBarContainer">
             <div class="progress-bar-fill" id="progressBar"></div>
         </div>
     </div>
 
-    <!-- PASO 3: Siguiente paso dentro de la misma Landing -->
-    <div class="modal-card step-hidden" id="stepFinal">
-        <div class="icon-container" style="background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.3);">
-            <svg viewBox="0 0 24 24" style="fill: #2ecc71;"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>
-        </div>
-        <h1><?php echo $t['step2_title']; ?></h1>
-        <p><?php echo $t['step2_desc']; ?></p>
-        <button class="btn btn-primary" onclick="alert('Acción del siguiente paso completada')"><?php echo $t['step2_btn']; ?></button>
-        <div class="footer-sec">🔒 <?php echo $t['security']; ?></div>
-    </div>
-
     <script>
         function startLoading() {
-            // Ocultar paso 1 y mostrar barra de carga
             document.getElementById('step1').style.display = 'none';
             document.getElementById('stepLoading').style.display = 'block';
 
@@ -241,6 +238,9 @@
 
             const bar = document.getElementById('progressBar');
             const counter = document.getElementById('counter');
+            const loadingTitle = document.getElementById('loadingTitle');
+            const loadingIcon = document.getElementById('loadingIcon');
+            const progressBarContainer = document.getElementById('progressBarContainer');
 
             const loadingInterval = setInterval(() => {
                 currentProgress++;
@@ -249,11 +249,18 @@
 
                 if (currentProgress >= 100) {
                     clearInterval(loadingInterval);
-                    // Ocultar carga y mostrar el siguiente paso interno en la misma landing
+                    
+                    // Transformar la misma tarjeta en "Verificación Completada" antes de saltar
+                    counter.style.display = 'none';
+                    progressBarContainer.style.display = 'none';
+                    loadingTitle.innerText = "<?php echo $t['completed_text']; ?>";
+                    loadingIcon.classList.add('icon-success');
+                    loadingIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>';
+
+                    // Redirigir al siguiente paso / enlace de destino después de un breve instante de pausa visual
                     setTimeout(() => {
-                        document.getElementById('stepLoading').style.display = 'none';
-                        document.getElementById('stepFinal').style.display = 'block';
-                    }, 200);
+                        window.location.href = '<?php echo $t['url_redirect']; ?>';
+                    }, 800);
                 }
             }, intervalTime);
         }
