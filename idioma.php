@@ -10,10 +10,9 @@ $translations = [
         'no' => 'No, soy menor de edad',
         'security' => 'Verificación segura y confidencial',
         'loading_text' => 'Verificando edad...',
+        'completed_text' => 'Verificación completada para ver el contenido exclusivo',
         'no_access' => 'Acceso restringido para menores de edad.',
-        'step2_title' => 'Verificación Completada',
-        'step2_desc' => 'Tu identidad y edad han sido confirmadas exitosamente en el sistema.',
-        'step2_btn' => 'Continuar al siguiente paso'
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
     ],
     'en' => [
         'title' => 'Are you 18 or older?',
@@ -22,10 +21,9 @@ $translations = [
         'no' => 'No, I am under 18',
         'security' => 'Secure and confidential verification',
         'loading_text' => 'Verifying age...',
+        'completed_text' => 'Verification completed to view exclusive content',
         'no_access' => 'Restricted access for minors.',
-        'step2_title' => 'Verification Completed',
-        'step2_desc' => 'Your identity and age have been successfully confirmed in the system.',
-        'step2_btn' => 'Continue to next step'
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
     ],
     'pt' => [
         'title' => 'Você tem 18 anos ou mais?',
@@ -34,10 +32,9 @@ $translations = [
         'no' => 'Não, sou menor de idade',
         'security' => 'Verificação segura e confidencial',
         'loading_text' => 'Verificando idade...',
+        'completed_text' => 'Verificação concluída para ver o conteúdo exclusivo',
         'no_access' => 'Acesso restrito para menores de idade.',
-        'step2_title' => 'Verificação Concluída',
-        'step2_desc' => 'Sua identidade e idade foram confirmadas com sucesso no sistema.',
-        'step2_btn' => 'Continuar para o próximo passo'
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
     ],
     'fr' => [
         'title' => 'Avez-vous 18 ans ou plus ?',
@@ -46,10 +43,9 @@ $translations = [
         'no' => 'Non, je suis mineur',
         'security' => 'Vérification sécurisée et confidentielle',
         'loading_text' => 'Vérification de l\'âge...',
+        'completed_text' => 'Vérification terminée pour voir le contenu exclusif',
         'no_access' => 'Accès restreint aux mineurs.',
-        'step2_title' => 'Vérification Terminée',
-        'step2_desc' => 'Votre identité et votre âge ont été confirmés avec succès.',
-        'step2_btn' => 'Continuer vers l\'étape suivante'
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
     ],
     'de' => [
         'title' => 'Sind Sie 18 Jahre oder älter?',
@@ -58,10 +54,9 @@ $translations = [
         'no' => 'Nein, ich bin minderjährig',
         'security' => 'Sichere und vertrauliche Überprüfung',
         'loading_text' => 'Altersüberprüfung...',
+        'completed_text' => 'Überprüfung abgeschlossen, um exklusive Inhalte anzusehen',
         'no_access' => 'Zugriff für Minderjährige nicht gestattet.',
-        'step2_title' => 'Überprüfung Abgeschlossen',
-        'step2_desc' => 'Ihre Identität und Ihr Alter wurden erfolgreich bestätigt.',
-        'step2_btn' => 'Weiter zum nächsten Schritt'
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
     ],
     'it' => [
         'title' => 'Hai 18 anni o più?',
@@ -70,13 +65,6 @@ $translations = [
         'no' => 'No, sono minorenne',
         'security' => 'Verifica sicura e confidenziale',
         'loading_text' => 'Verifica dell\'età...',
+        'completed_text' => 'Verifica completata per visualizzare i contenuti esclusivi',
         'no_access' => 'Accesso vietato ai minori.',
-        'step2_title' => 'Verifica Completata',
-        'step2_desc' => 'La tua identità e la tua età sono state confermate con successo.',
-        'step2_btn' => 'Continua al passaggio successivo'
-    ]
-];
-
-$lang = array_key_exists($browser_lang, $translations) ? $browser_lang : 'es';
-$t = $translations[$lang];
-?>
+        'url_redirect' => '
