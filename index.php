@@ -1,43 +1,4 @@
-<?php
-// Detección automática del idioma del navegador
-$browser_lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'es';
-
-$translations = [
-    'es' => [
-        'title' => '¿Tienes 18 años o más?',
-        'desc' => 'Este sitio contiene material exclusivo y restringido para adultos. Por favor, confirma tu edad para continuar.',
-        'yes' => 'Sí, tengo 18 años o más',
-        'no' => 'No, soy menor de edad',
-        'security' => 'Verificación segura y confidencial',
-        'loading_text' => 'Verificando edad...',
-        'no_access' => 'Acceso restringido para menores de edad.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
-    ],
-    'en' => [
-        'title' => 'Are you 18 or older?',
-        'desc' => 'This site contains exclusive and restricted content for adults. Please confirm your age to continue.',
-        'yes' => 'Yes, I am 18 or older',
-        'no' => 'No, I am under 18',
-        'security' => 'Secure and confidential verification',
-        'loading_text' => 'Verifying age...',
-        'no_access' => 'Restricted access for minors.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
-    ],
-    'pt' => [
-        'title' => 'Você tem 18 anos ou mais?',
-        'desc' => 'Este site contém material exclusivo e restrito para adultos. Por favor, confirme sua idade para continuar.',
-        'yes' => 'Sim, tenho 18 anos ou mais',
-        'no' => 'Não, sou menor de idade',
-        'security' => 'Verificação segura e confidencial',
-        'loading_text' => 'Verificando idade...',
-        'no_access' => 'Acesso restrito para menores de idade.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
-    ]
-];
-
-$lang = array_key_exists($browser_lang, $translations) ? $browser_lang : 'es';
-$t = $translations[$lang];
-?>
+<?php include 'idioma.php'; ?>
 <!DOCTYPE html>
 <html lang="<?php echo $lang; ?>">
 <head>
@@ -64,7 +25,7 @@ $t = $translations[$lang];
             position: relative;
         }
 
-        /* Video de fondo optimizado para cubrir correctamente en móvil y PC sin deformarse */
+        /* Video de fondo adaptativo */
         .video-background {
             position: fixed;
             top: 50%;
@@ -91,7 +52,7 @@ $t = $translations[$lang];
             pointer-events: none;
         }
 
-        /* Tarjeta flotante adaptativa para móviles */
+        /* Tarjetas flotantes */
         .modal-card {
             position: relative;
             z-index: 10;
@@ -191,11 +152,12 @@ $t = $translations[$lang];
             padding-top: 16px;
         }
 
-        /* Pantalla de Carga (Loading) */
-        .loading-container {
+        /* Secciones ocultas inicialmente */
+        .step-hidden {
             display: none;
         }
 
+        /* Barra de carga */
         .progress-bar-bg {
             width: 100%;
             height: 9px;
@@ -225,50 +187,51 @@ $t = $translations[$lang];
 </head>
 <body>
 
-    <!-- Video de fondo responsivo -->
+    <!-- Video de fondo -->
     <video class="video-background" autoplay muted loop playsinline>
         <source src="https://directo.discrettasliveftosgroup.com/video.mp4" type="video/mp4">
     </video>
     <div class="vignette"></div>
 
-    <!-- PASO 1: Verificación -->
+    <!-- PASO 1: Verificación de Edad -->
     <div class="modal-card" id="step1">
         <div class="icon-container">
-            <svg viewBox="0 0 24 24">
-                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
         </div>
-
         <h1><?php echo $t['title']; ?></h1>
         <p><?php echo $t['desc']; ?></p>
-
         <button class="btn btn-primary" onclick="startLoading()"><?php echo $t['yes']; ?></button>
         <button class="btn btn-secondary" onclick="alert('<?php echo $t['no_access']; ?>')"><?php echo $t['no']; ?></button>
-
-        <div class="footer-sec">
-            🔒 <?php echo $t['security']; ?>
-        </div>
+        <div class="footer-sec">🔒 <?php echo $t['security']; ?></div>
     </div>
 
-    <!-- PASO 2: Loading de 1.5 segundos -->
-    <div class="modal-card loading-container" id="stepLoading">
+    <!-- PASO 2: Pantalla de Loading (1.5 segundos) -->
+    <div class="modal-card step-hidden" id="stepLoading">
         <div class="icon-container">
-            <svg viewBox="0 0 24 24">
-                <path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" />
-            </svg>
+            <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
         </div>
-
         <div class="percentage-text" id="counter">1%</div>
         <h1 style="font-size: 19px; margin-bottom: 6px;"><?php echo $t['loading_text']; ?></h1>
         <p style="margin-bottom: 15px;"><?php echo $t['security']; ?></p>
-
         <div class="progress-bar-bg">
             <div class="progress-bar-fill" id="progressBar"></div>
         </div>
     </div>
 
+    <!-- PASO 3: Siguiente paso dentro de la misma Landing -->
+    <div class="modal-card step-hidden" id="stepFinal">
+        <div class="icon-container" style="background: rgba(46, 204, 113, 0.15); border-color: rgba(46, 204, 113, 0.3);">
+            <svg viewBox="0 0 24 24" style="fill: #2ecc71;"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>
+        </div>
+        <h1><?php echo $t['step2_title']; ?></h1>
+        <p><?php echo $t['step2_desc']; ?></p>
+        <button class="btn btn-primary" onclick="alert('Acción del siguiente paso completada')"><?php echo $t['step2_btn']; ?></button>
+        <div class="footer-sec">🔒 <?php echo $t['security']; ?></div>
+    </div>
+
     <script>
         function startLoading() {
+            // Ocultar paso 1 y mostrar barra de carga
             document.getElementById('step1').style.display = 'none';
             document.getElementById('stepLoading').style.display = 'block';
 
@@ -286,8 +249,10 @@ $t = $translations[$lang];
 
                 if (currentProgress >= 100) {
                     clearInterval(loadingInterval);
+                    // Ocultar carga y mostrar el siguiente paso interno en la misma landing
                     setTimeout(() => {
-                        window.location.href = '<?php echo $t['url_redirect']; ?>';
+                        document.getElementById('stepLoading').style.display = 'none';
+                        document.getElementById('stepFinal').style.display = 'block';
                     }, 200);
                 }
             }, intervalTime);
