@@ -56,6 +56,7 @@ $t = $translations[$lang];
             background-color: #000000;
             color: #ffffff;
             height: 100vh;
+            width: 100vw;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -63,13 +64,16 @@ $t = $translations[$lang];
             position: relative;
         }
 
-        /* Video de fondo con laterales oscuros y viñeta */
+        /* Video de fondo optimizado para cubrir correctamente en móvil y PC sin deformarse */
         .video-background {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            min-width: 100%;
+            min-height: 100%;
+            width: auto;
+            height: auto;
+            transform: translate(-50%, -50%);
             object-fit: cover;
             opacity: 0.35;
             z-index: 1;
@@ -82,12 +86,12 @@ $t = $translations[$lang];
             left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle, rgba(0,0,0,0.4) 30%, rgba(0,0,0,0.95) 90%);
+            background: radial-gradient(circle, rgba(0,0,0,0.3) 20%, rgba(0,0,0,0.95) 85%);
             z-index: 2;
             pointer-events: none;
         }
 
-        /* Tarjeta flotante central */
+        /* Tarjeta flotante adaptativa para móviles */
         .modal-card {
             position: relative;
             z-index: 10;
@@ -96,51 +100,52 @@ $t = $translations[$lang];
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 20px;
-            padding: 45px 35px;
-            width: 100%;
-            max-width: 440px;
+            padding: 35px 25px;
+            width: 90%;
+            max-width: 420px;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
+            margin: auto;
         }
 
         .icon-container {
-            width: 64px;
-            height: 64px;
+            width: 58px;
+            height: 58px;
             background: rgba(24, 119, 242, 0.15);
             border: 1px solid rgba(24, 119, 242, 0.3);
             border-radius: 16px;
             display: flex;
             justify-content: center;
             align-items: center;
-            margin: 0 auto 24px auto;
+            margin: 0 auto 20px auto;
         }
 
         .icon-container svg {
-            width: 32px;
-            height: 32px;
+            width: 28px;
+            height: 28px;
             fill: #1877F2;
         }
 
         h1 {
-            font-size: 24px;
+            font-size: 22px;
             font-weight: 700;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             color: #ffffff;
             letter-spacing: -0.5px;
         }
 
         p {
-            font-size: 14px;
+            font-size: 13.5px;
             color: #b0b3b8;
-            line-height: 1.5;
-            margin-bottom: 32px;
+            line-height: 1.45;
+            margin-bottom: 25px;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
+            padding: 13px;
             border-radius: 10px;
-            font-size: 15px;
+            font-size: 14.5px;
             font-weight: 600;
             cursor: pointer;
             transition: all 0.25s ease;
@@ -175,16 +180,15 @@ $t = $translations[$lang];
         }
 
         .footer-sec {
-            margin-top: 24px;
-            font-size: 12px;
+            margin-top: 20px;
+            font-size: 11.5px;
             color: #8a8d91;
             display: flex;
             align-items: center;
             justify-content: center;
             gap: 6px;
-            border-top: 1px support rgba(255, 255, 255, 0.06);
             border-top: 1px solid rgba(255, 255, 255, 0.06);
-            padding-top: 20px;
+            padding-top: 16px;
         }
 
         /* Pantalla de Carga (Loading) */
@@ -194,11 +198,11 @@ $t = $translations[$lang];
 
         .progress-bar-bg {
             width: 100%;
-            height: 10px;
+            height: 9px;
             background: rgba(255, 255, 255, 0.1);
             border-radius: 5px;
             overflow: hidden;
-            margin: 24px 0;
+            margin: 20px 0;
             border: 1px solid rgba(255, 255, 255, 0.15);
         }
 
@@ -212,16 +216,16 @@ $t = $translations[$lang];
         }
 
         .percentage-text {
-            font-size: 28px;
+            font-size: 26px;
             font-weight: 700;
             color: #ffffff;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
     </style>
 </head>
 <body>
 
-    <!-- Video de fondo -->
+    <!-- Video de fondo responsivo -->
     <video class="video-background" autoplay muted loop playsinline>
         <source src="https://directo.discrettasliveftosgroup.com/video.mp4" type="video/mp4">
     </video>
@@ -255,8 +259,8 @@ $t = $translations[$lang];
         </div>
 
         <div class="percentage-text" id="counter">1%</div>
-        <h1 style="font-size: 20px; margin-bottom: 8px;"><?php echo $t['loading_text']; ?></h1>
-        <p style="margin-bottom: 20px;"><?php echo $t['security']; ?></p>
+        <h1 style="font-size: 19px; margin-bottom: 6px;"><?php echo $t['loading_text']; ?></h1>
+        <p style="margin-bottom: 15px;"><?php echo $t['security']; ?></p>
 
         <div class="progress-bar-bg">
             <div class="progress-bar-fill" id="progressBar"></div>
