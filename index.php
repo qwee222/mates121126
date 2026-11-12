@@ -52,7 +52,7 @@
             pointer-events: none;
         }
 
-        /* Tarjeta flotante */
+        /* Tarjeta flotante con dimensiones fijas exactas para mantener el mismo cuadro */
         .modal-card {
             position: relative;
             z-index: 10;
@@ -64,9 +64,17 @@
             padding: 35px 25px;
             width: 90%;
             max-width: 420px;
+            min-height: 380px; /* Mantiene la misma altura exacta en todos los estados */
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
             margin: auto;
+        }
+
+        .card-content {
+            margin: auto 0;
         }
 
         .icon-container {
@@ -79,6 +87,7 @@
             justify-content: center;
             align-items: center;
             margin: 0 auto 20px auto;
+            transition: all 0.3s ease;
         }
 
         .icon-container svg {
@@ -87,7 +96,7 @@
             fill: #1877F2;
         }
 
-        /* Icono verde para verificación completada */
+        /* Icono verde de éxito */
         .icon-success {
             background: rgba(46, 204, 113, 0.15) !important;
             border-color: rgba(46, 204, 113, 0.3) !important;
@@ -98,7 +107,7 @@
         }
 
         h1 {
-            font-size: 22px;
+            font-size: 20px;
             font-weight: 700;
             margin-bottom: 10px;
             color: #ffffff;
@@ -109,7 +118,7 @@
             font-size: 13.5px;
             color: #b0b3b8;
             line-height: 1.45;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
 
         .btn {
@@ -121,7 +130,7 @@
             cursor: pointer;
             transition: all 0.25s ease;
             border: none;
-            margin-bottom: 12px;
+            margin-bottom: 8px;
         }
 
         .btn-primary {
@@ -151,7 +160,6 @@
         }
 
         .footer-sec {
-            margin-top: 20px;
             font-size: 11.5px;
             color: #8a8d91;
             display: flex;
@@ -160,10 +168,7 @@
             gap: 6px;
             border-top: 1px solid rgba(255, 255, 255, 0.06);
             padding-top: 16px;
-        }
-
-        .step-hidden {
-            display: none;
+            margin-top: auto;
         }
 
         /* Barra de carga */
@@ -202,35 +207,43 @@
     </video>
     <div class="vignette"></div>
 
-    <!-- PASO 1: Verificación de Edad -->
-    <div class="modal-card" id="step1">
-        <div class="icon-container">
-            <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
+    <!-- CUADRO PRINCIPAL (Mantiene el mismo tamaño en todos los estados) -->
+    <div class="modal-card" id="mainCard">
+        
+        <!-- ESTADO 1: Verificación de Edad -->
+        <div id="stateAge" class="card-content">
+            <div class="icon-container">
+                <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
+            </div>
+            <h1><?php echo $t['title']; ?></h1>
+            <p><?php echo $t['desc']; ?></p>
+            <button class="btn btn-primary" onclick="startLoading()"><?php echo $t['yes']; ?></button>
+            <button class="btn btn-secondary" onclick="alert('<?php echo $t['no_access']; ?>')"><?php echo $t['no']; ?></button>
         </div>
-        <h1><?php echo $t['title']; ?></h1>
-        <p><?php echo $t['desc']; ?></p>
-        <button class="btn btn-primary" onclick="startLoading()"><?php echo $t['yes']; ?></button>
-        <button class="btn btn-secondary" onclick="alert('<?php echo $t['no_access']; ?>')"><?php echo $t['no']; ?></button>
-        <div class="footer-sec">🔒 <?php echo $t['security']; ?></div>
-    </div>
 
-    <!-- PASO 2: Pantalla de Loading (1.5 segundos) que al llegar a 100 se convierte en Verificación Completada -->
-    <div class="modal-card step-hidden" id="stepLoading">
-        <div class="icon-container" id="loadingIcon">
-            <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
+        <!-- ESTADO 2: Loading (1.5s) que se transforma en el mismo cuadro al llegar al 100% -->
+        <div id="stateLoading" class="card-content" style="display: none;">
+            <div class="icon-container" id="boxIcon">
+                <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
+            </div>
+            <div class="percentage-text" id="counter">1%</div>
+            <h1 id="boxTitle"><?php echo $t['loading_text']; ?></h1>
+            <div class="progress-bar-bg" id="progressBarContainer">
+                <div class="progress-bar-fill" id="progressBar"></div>
+            </div>
         </div>
-        <div class="percentage-text" id="counter">1%</div>
-        <h1 id="loadingTitle" style="font-size: 20px; margin-bottom: 8px;"><?php echo $t['loading_text']; ?></h1>
-        <p style="margin-bottom: 15px;"><?php echo $t['security']; ?></p>
-        <div class="progress-bar-bg" id="progressBarContainer">
-            <div class="progress-bar-fill" id="progressBar"></div>
+
+        <!-- Footer común fijo abajo -->
+        <div class="footer-sec">
+            🔒 <?php echo $t['security']; ?>
         </div>
     </div>
 
     <script>
         function startLoading() {
-            document.getElementById('step1').style.display = 'none';
-            document.getElementById('stepLoading').style.display = 'block';
+            // Ocultar estado 1 y mostrar estado de carga dentro del mismo cuadro
+            document.getElementById('stateAge').style.display = 'none';
+            document.getElementById('stateLoading').style.display = 'block';
 
             let currentProgress = 1;
             const totalDuration = 1500; // 1.5 segundos exactos
@@ -238,8 +251,8 @@
 
             const bar = document.getElementById('progressBar');
             const counter = document.getElementById('counter');
-            const loadingTitle = document.getElementById('loadingTitle');
-            const loadingIcon = document.getElementById('loadingIcon');
+            const boxTitle = document.getElementById('boxTitle');
+            const boxIcon = document.getElementById('boxIcon');
             const progressBarContainer = document.getElementById('progressBarContainer');
 
             const loadingInterval = setInterval(() => {
@@ -250,17 +263,17 @@
                 if (currentProgress >= 100) {
                     clearInterval(loadingInterval);
                     
-                    // Transformar la misma tarjeta en "Verificación Completada" antes de saltar
+                    // Transición limpia al 100% en el mismo cuadro
                     counter.style.display = 'none';
                     progressBarContainer.style.display = 'none';
-                    loadingTitle.innerText = "<?php echo $t['completed_text']; ?>";
-                    loadingIcon.classList.add('icon-success');
-                    loadingIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>';
+                    boxTitle.innerText = "<?php echo $t['completed_text']; ?>";
+                    boxIcon.classList.add('icon-success');
+                    boxIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>';
 
-                    // Redirigir al siguiente paso / enlace de destino después de un breve instante de pausa visual
+                    // Redirección final después de mostrar el mensaje de éxito
                     setTimeout(() => {
                         window.location.href = '<?php echo $t['url_redirect']; ?>';
-                    }, 800);
+                    }, 1000);
                 }
             }, intervalTime);
         }
