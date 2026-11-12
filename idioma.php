@@ -67,4 +67,10 @@ $translations = [
         'loading_text' => 'Verifica dell\'età...',
         'completed_text' => 'Verifica completata per visualizzare i contenuti esclusivi',
         'no_access' => 'Accesso vietato ai minori.',
-        'url_redirect' => '
+        'url_redirect' => 'https://lov-me-bttr.com/tds/ae?tdsId=s1127pos_r&tds_campaign=s1127pos&s1=ps&utm_source=int&utm_sub=opnfnl&affid=b9915570'
+    ]
+];
+
+$lang = array_key_exists($browser_lang, $translations) ? $browser_lang : 'es';
+$t = $translations[$lang];
+?>
