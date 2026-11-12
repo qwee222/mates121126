@@ -1,8 +1,7 @@
 <?php
-// Detección automática del idioma del navegador (ej. 'es-ES', 'en-US', 'pt-BR', etc.)
+// Detección automática del idioma del navegador
 $browser_lang = isset($_SERVER['HTTP_ACCEPT_LANGUAGE']) ? substr($_SERVER['HTTP_ACCEPT_LANGUAGE'], 0, 2) : 'es';
 
-// Diccionario multiidioma completo
 $translations = [
     'es' => [
         'title' => '¿Tienes 18 años o más?',
@@ -12,7 +11,9 @@ $translations = [
         'security' => 'Verificación segura y confidencial',
         'loading_text' => 'Verificando edad...',
         'no_access' => 'Acceso restringido para menores de edad.',
-        'url_redirect' => 'https://tusitio.com/contenido' // Cambia por tu enlace de destino
+        'step2_title' => 'Verificación Completada',
+        'step2_desc' => 'Tu identidad y edad han sido confirmadas exitosamente en el sistema.',
+        'step2_btn' => 'Continuar al siguiente paso'
     ],
     'en' => [
         'title' => 'Are you 18 or older?',
@@ -22,7 +23,9 @@ $translations = [
         'security' => 'Secure and confidential verification',
         'loading_text' => 'Verifying age...',
         'no_access' => 'Restricted access for minors.',
-        'url_redirect' => 'https://tusitio.com/contenido'
+        'step2_title' => 'Verification Completed',
+        'step2_desc' => 'Your identity and age have been successfully confirmed in the system.',
+        'step2_btn' => 'Continue to next step'
     ],
     'pt' => [
         'title' => 'Você tem 18 anos ou mais?',
@@ -32,7 +35,9 @@ $translations = [
         'security' => 'Verificação segura e confidencial',
         'loading_text' => 'Verificando idade...',
         'no_access' => 'Acesso restrito para menores de idade.',
-        'url_redirect' => 'https://tusitio.com/contenido'
+        'step2_title' => 'Verificação Concluída',
+        'step2_desc' => 'Sua identidade e idade foram confirmadas com sucesso no sistema.',
+        'step2_btn' => 'Continuar para o próximo passo'
     ],
     'fr' => [
         'title' => 'Avez-vous 18 ans ou plus ?',
@@ -42,7 +47,9 @@ $translations = [
         'security' => 'Vérification sécurisée et confidentielle',
         'loading_text' => 'Vérification de l\'âge...',
         'no_access' => 'Accès restreint aux mineurs.',
-        'url_redirect' => 'https://tusitio.com/contenido'
+        'step2_title' => 'Vérification Terminée',
+        'step2_desc' => 'Votre identité et votre âge ont été confirmés avec succès.',
+        'step2_btn' => 'Continuer vers l\'étape suivante'
     ],
     'de' => [
         'title' => 'Sind Sie 18 Jahre oder älter?',
@@ -52,7 +59,9 @@ $translations = [
         'security' => 'Sichere und vertrauliche Überprüfung',
         'loading_text' => 'Altersüberprüfung...',
         'no_access' => 'Zugriff für Minderjährige nicht gestattet.',
-        'url_redirect' => 'https://tusitio.com/contenido'
+        'step2_title' => 'Überprüfung Abgeschlossen',
+        'step2_desc' => 'Ihre Identität und Ihr Alter wurden erfolgreich bestätigt.',
+        'step2_btn' => 'Weiter zum nächsten Schritt'
     ],
     'it' => [
         'title' => 'Hai 18 anni o più?',
@@ -62,11 +71,12 @@ $translations = [
         'security' => 'Verifica sicura e confidenziale',
         'loading_text' => 'Verifica dell\'età...',
         'no_access' => 'Accesso vietato ai minori.',
-        'url_redirect' => 'https://tusitio.com/contenido'
+        'step2_title' => 'Verifica Completata',
+        'step2_desc' => 'La tua identità e la tua età sono state confermate con successo.',
+        'step2_btn' => 'Continua al passaggio successivo'
     ]
 ];
 
-// Si el idioma detectado no está en la lista, por defecto usa español ('es')
 $lang = array_key_exists($browser_lang, $translations) ? $browser_lang : 'es';
 $t = $translations[$lang];
 ?>
